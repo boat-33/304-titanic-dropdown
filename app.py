@@ -29,7 +29,7 @@ def fit_in_bucket(value):
 df = pd.read_csv("https://raw.githubusercontent.com/austinlasseter/plotly_dash_tutorial/master/00%20resources/titanic.csv")
 df['Female']=df['Sex'].map({'male':0, 'female':1})
 df['Passenger Age'] = df['Age'].map(lambda x: fit_in_bucket(x))
-variables_list=['Survived', 'Female', 'Fare', 'Age']
+variables_list=['Survived', 'Female', 'Fare', 'Pclass']
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
