@@ -18,9 +18,17 @@ githublink = 'https://github.com/plotly-dash-apps/304-titanic-dropdown'
 
 
 ###### Import a dataframe #######
+def fit_in_bucket(value):
+    if float(value) < 25.0:
+        return 'under 25'
+    elif float(value) > 25.0 and float(value) < 50.0:
+        return 'between 25 and 50'
+    elif float(value) > 50.0:
+        return 'over 50'
+
 df = pd.read_csv("https://raw.githubusercontent.com/austinlasseter/plotly_dash_tutorial/master/00%20resources/titanic.csv")
 df['Female']=df['Sex'].map({'male':0, 'female':1})
-df['Embarked From'] = df['Embarked'].map({'Southampton': 'Southampton','Cherbourg': 'Cherbourg', 'Queenstown':'Queenstown'})
+df['Passenger Age'] = df['Age'].map(lambda x: fit_in_bucket(x))
 variables_list=['Survived', 'Female', 'Fare', 'Age']
 
 ########### Initiate the app
@@ -53,21 +61,21 @@ def display_value(continuous_var):
     results=pd.DataFrame(grouped_mean)
     # Create a grouped bar chart
     mydata1 = go.Bar(
-        x=results.loc['Southampton'].index,
-        y=results.loc['Southampton'][continuous_var],
-        name='Southampton',
+        x=results.loc['under 25'].index,
+        y=results.loc['under 25'][continuous_var],
+        name='Under 25',
         marker=dict(color=color1)
     )
     mydata2 = go.Bar(
-        x=results.loc['Cherbourg'].index,
-        y=results.loc['Cherbourg'][continuous_var],
-        name='Cherbourg',
+        x=results.loc['between 25 and 50'].index,
+        y=results.loc['between 25 and 50'][continuous_var],
+        name='Between 25 and 50',
         marker=dict(color=color2)
     )
     mydata3 = go.Bar(
-        x=results.loc['Queenstown'].index,
-        y=results.loc['Queenstown'][continuous_var],
-        name='Queenstown',
+        x=results.loc['over 50'].index,
+        y=results.loc['over 50'][continuous_var],
+        name='Over 50',
         marker=dict(color=color3)
     )
 
